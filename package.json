@@ -1,0 +1,16 @@
+{
+  "name": "emberbot",
+  "version": "0.0.5",
+  "description": "",
+  "main": "emberbot.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "DevSamuelV",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^14.0.27",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
+  }
+}
