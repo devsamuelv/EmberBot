@@ -1,9 +1,17 @@
-import { Client } from 'discord.js';
+import { Client, TextChannel } from 'discord.js';
 
 const prefix = "%%";
 const bot = new Client();
 
 require('dotenv').config();
+
+var config = {
+    annoucmentChannelID: "633078584520736782"
+}
+
+bot.on('guildMemberAdd', (member) => {
+    
+})
 
 bot.on('message', (message) => {
     if (message.content.split('')[0] && message.content.split('')[1] != "%") { return; }
@@ -15,10 +23,36 @@ bot.on('message', (message) => {
             const msg = args[1];
             const number = args[2];
 
-            for (var i = 0; i != Number(number); i++) {
-                message.channel.send(msg);
+            console.log(msg);
+
+            if (msg.includes("@")) {
+                message.channel.send('🛑 Please do not spam Everywon! 🛑');
+                
+                return;  
+            }
+
+            try {
+                for (var i = 0; i != Number(number); i++) {
+                    message.channel.send(msg);
+                }
+            } catch (err) {
+                console.error(err);
             }
         break;
+
+        case "list-channels":
+            if (message.author.username != "Developer") {
+                message.channel.send("Im Sorry Your Not Allowed to use this command");
+                return;
+            }
+
+            message.channel.send(' Channels listed in console');
+            break;
+
+ 
+        case "help":
+            message.channel.send('Commands: spam');
+            break;
     }
 })
 
@@ -28,10 +62,10 @@ bot.on('ready', () => {
     console.log("-------------------\n")
 
     bot.user?.setPresence({
-        status: "idle",
+        status: "dnd",
 
-        activity: {
-            name: "%% for commands",
+        game: {
+            name: "%%help for commands",
             type: "LISTENING",
             url: "https://www.youtube.com/watch?v=W_C5L0DdQHw"
         } 
