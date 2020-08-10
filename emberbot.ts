@@ -14,26 +14,34 @@ bot.on('guildMemberAdd', (member) => {
 })
 
 bot.on('message', (message) => {
+    if (message.content.toLowerCase().includes("@everywon")) {
+        message.delete();
+        console.log('deleted msg');
+        message.channel.send('🛑 Please do not spam Everywon! 🛑');
+    }
+})
+
+bot.on('message', (message) => {
     if (message.content.split('')[0] && message.content.split('')[1] != "%") { return; }
 
     const args = message.content.substr(prefix.length).split(' ');
 
     switch (args[0]) {
         case "spam":
-            const msg = args[1];
-            const number = args[2];
+            const msg = message.content.substr(prefix.length + args[0].length  + 1);
+            const number = message.content.split(':')[1];
 
-            console.log(msg);
+            console.log(number);
 
             if (msg.includes("@")) {
-                message.channel.send('🛑 Please do not spam Everywon! 🛑');
+                message.channel.send('🛑 Please do not spam Everywon! 🛑'); 
                 
                 return;  
             }
 
             try {
                 for (var i = 0; i != Number(number); i++) {
-                    message.channel.send(msg);
+                    message.channel.send(msg.replace(':', "").replace(String(number), ""));
                 }
             } catch (err) {
                 console.error(err);
